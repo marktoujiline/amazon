@@ -14,7 +14,7 @@ interface WriteProps {
 
 type Props = ReadProps & WriteProps;
 
-const Counter: React.FC<Props> = ({ count, inc, dec }) => {
+export const Counter: React.FC<Props> = ({ count, inc, dec }) => {
   return (
     <div>
       <p>{count}</p>
