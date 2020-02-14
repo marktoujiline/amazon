@@ -1,0 +1,32 @@
+{
+  "name": "amazon-1",
+  "version": "1.0.0",
+  "description": "Simplified Amazon for Training",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cynthiasantee/amazon-1.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cynthiasantee/amazon-1/issues"
+  },
+  "homepage": "https://github.com/cynthiasantee/amazon-1#readme",
+  "devDependencies": {
+    "husky": "^4.2.2",
+    "lint-staged": "^10.0.7",
+    "prettier": "1.19.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,css,md,ts,tsx}": "prettier --write"
+  }
+}
