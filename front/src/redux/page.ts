@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-export type Page = "home" | "cart" | "search" | "account";
+export type Page = "home" | "cart" | "search" | "account" | "about";
 
 export default createSlice({
   name: "page",

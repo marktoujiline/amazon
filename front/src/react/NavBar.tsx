@@ -57,6 +57,15 @@ const NavBar: React.FC<Props> = ({ page, setPage }) => {
               Account
             </StyledLink>
           </Li>
+          <Li>
+            <StyledLink
+              highlight={page === "about"}
+              to="/about"
+              onClick={() => setPage("about")}
+            >
+              About
+            </StyledLink>
+          </Li>
         </Ul>
       </Nav>
     </Container>

@@ -1,29 +1,8 @@
 import React from "react";
-import { Page } from "../redux/page";
-import pageSlice from "../redux/page";
-import { connect } from "react-redux";
-import { RootState } from "..";
+import page from "./page";
 
-interface ReadProps {
-  page: Page;
-}
-
-interface WriteProps {
-  setPage: (page: Page) => void;
-}
-
-type Props = ReadProps & WriteProps;
-
-const Cart: React.FC<Props> = ({ page, setPage }) => {
-  setPage("cart");
+const Cart: React.FC<{}> = () => {
   return <h2>Cart</h2>;
 };
 
-export default connect<ReadProps, WriteProps, {}, RootState>(
-  state => ({
-    page: state.page
-  }),
-  dispatch => ({
-    setPage: page => dispatch(pageSlice.actions.changePage(page))
-  })
-)(Cart);
+export default page(Cart, "cart");

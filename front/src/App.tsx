@@ -6,6 +6,7 @@ import Home from "./react/Home";
 import Cart from "./react/Cart";
 import Search from "./react/Search";
 import Account from "./react/Account";
+import About from "./react/About";
 
 const Page = styled.div`
   margin-top: 50px;
@@ -27,6 +28,9 @@ const App = () => {
               </Route>
               <Route path="/account">
                 <Account />
+              </Route>
+              <Route path="/about">
+                <About />
               </Route>
               <Route path="/">
                 <Home />
