@@ -1,29 +1,76 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { RootState } from "..";
+import { Page } from "../redux/page";
+import pageSlice from "../redux/page";
 
-export const NavBar = () => {
+interface ReadProps {
+  page: Page;
+}
+
+interface WriteProps {
+  setPage: (page: Page) => void;
+}
+
+type Props = ReadProps & WriteProps;
+
+const NavBar: React.FC<Props> = ({ page, setPage }) => {
   return (
     <Container>
       <Nav>
         <Ul>
           <Li>
-            <StyledLink to="/">Home</StyledLink>
+            <StyledLink
+              highlight={page === "home"}
+              to="/"
+              onClick={() => setPage("home")}
+            >
+              Home
+            </StyledLink>
           </Li>
           <Li>
-            <StyledLink to="/cart">Cart</StyledLink>
+            <StyledLink
+              highlight={page === "cart"}
+              to="/cart"
+              onClick={() => setPage("cart")}
+            >
+              Cart
+            </StyledLink>
           </Li>
           <Li>
-            <StyledLink to="/search">Search</StyledLink>
+            <StyledLink
+              highlight={page === "search"}
+              to="/search"
+              onClick={() => setPage("search")}
+            >
+              Search
+            </StyledLink>
           </Li>
           <Li>
-            <StyledLink to="/account">Account</StyledLink>
+            <StyledLink
+              highlight={page === "account"}
+              to="/account"
+              onClick={() => setPage("account")}
+            >
+              Account
+            </StyledLink>
           </Li>
         </Ul>
       </Nav>
     </Container>
   );
 };
+
+export default connect<ReadProps, WriteProps, {}, RootState>(
+  state => ({
+    page: state.page
+  }),
+  dispatch => ({
+    setPage: page => dispatch(pageSlice.actions.changePage(page))
+  })
+)(NavBar);
 
 const Nav = styled.nav`
   height: 100%;
@@ -50,7 +97,7 @@ const Li = styled.li`
   height: 100%;
 `;
 
-const StyledLink = styled(Link)`
+const StyledLink = styled(Link)<{ highlight: boolean }>`
   display: block;
   color: white;
   text-align: center;
@@ -60,4 +107,6 @@ const StyledLink = styled(Link)`
   &:hover {
     background-color: black;
   }
+
+  background-color: ${props => (!props.highlight ? "#333" : "black")};
 `;
