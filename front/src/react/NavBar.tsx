@@ -1,10 +1,12 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { RootState } from "..";
 import { Page } from "../redux/page";
 import pageSlice from "../redux/page";
+import { pageTitle } from "../util/pageTitle";
+import match from "../util/match";
 
 interface ReadProps {
   page: Page;
@@ -17,55 +19,28 @@ interface WriteProps {
 type Props = ReadProps & WriteProps;
 
 const NavBar: React.FC<Props> = ({ page, setPage }) => {
+  const tabs: Page[] = [
+    "home",
+    "cart",
+    "search",
+    "account",
+    "about",
+    "messages"
+  ];
+
   return (
     <Container>
       <Nav>
         <Ul>
-          <Li>
-            <StyledLink
-              highlight={page === "home"}
-              to="/"
-              onClick={() => setPage("home")}
-            >
-              Home
-            </StyledLink>
-          </Li>
-          <Li>
-            <StyledLink
-              highlight={page === "cart"}
-              to="/cart"
-              onClick={() => setPage("cart")}
-            >
-              Cart
-            </StyledLink>
-          </Li>
-          <Li>
-            <StyledLink
-              highlight={page === "search"}
-              to="/search"
-              onClick={() => setPage("search")}
-            >
-              Search
-            </StyledLink>
-          </Li>
-          <Li>
-            <StyledLink
-              highlight={page === "account"}
-              to="/account"
-              onClick={() => setPage("account")}
-            >
-              Account
-            </StyledLink>
-          </Li>
-          <Li>
-            <StyledLink
-              highlight={page === "about"}
-              to="/about"
-              onClick={() => setPage("about")}
-            >
-              About
-            </StyledLink>
-          </Li>
+          {tabs.map(tab => {
+            return (
+              <Li>
+                <StyledLink highlight={page === tab} to={`/${tab}`}>
+                  {pageTitle(tab)}
+                </StyledLink>
+              </Li>
+            );
+          })}
         </Ul>
       </Nav>
     </Container>
