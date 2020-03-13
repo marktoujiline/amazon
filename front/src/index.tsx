@@ -5,10 +5,10 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
-import counter from "./redux/counter";
+import page from "./redux/page";
 
 const rootReducer = combineReducers({
-  counter: counter.reducer
+  page: page.reducer
 });
 const store = configureStore({ reducer: rootReducer });
 

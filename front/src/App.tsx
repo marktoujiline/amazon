@@ -1,23 +1,18 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { NavBar } from "./react/NavBar";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect
+} from "react-router-dom";
+import NavBar from "./react/NavBar";
 import styled from "styled-components";
-
-const Home = () => {
-  return <h2>Home</h2>;
-};
-
-const Cart = () => {
-  return <h2>Cart</h2>;
-};
-
-const Search = () => {
-  return <h2>Search</h2>;
-};
-
-const Account = () => {
-  return <h2>Account</h2>;
-};
+import Home from "./react/Home";
+import Cart from "./react/Cart";
+import Search from "./react/Search";
+import Account from "./react/Account";
+import About from "./react/About";
+import Messages from "./react/Messages";
 
 const Page = styled.div`
   margin-top: 50px;
@@ -40,8 +35,17 @@ const App = () => {
               <Route path="/account">
                 <Account />
               </Route>
-              <Route path="/">
+              <Route path="/about">
+                <About />
+              </Route>
+              <Route path="/home">
                 <Home />
+              </Route>
+              <Route path="/messages">
+                <Messages />
+              </Route>
+              <Route path="/">
+                <Redirect to="/home"></Redirect>
               </Route>
             </Switch>
           </Page>

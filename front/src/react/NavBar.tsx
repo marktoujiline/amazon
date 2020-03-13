@@ -1,29 +1,60 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { RootState } from "..";
+import { Page } from "../redux/page";
+import pageSlice from "../redux/page";
+import { pageTitle } from "../util/pageTitle";
+import match from "../util/match";
 
-export const NavBar = () => {
+interface ReadProps {
+  page: Page;
+}
+
+interface WriteProps {
+  setPage: (page: Page) => void;
+}
+
+type Props = ReadProps & WriteProps;
+
+const NavBar: React.FC<Props> = ({ page, setPage }) => {
+  const tabs: Page[] = [
+    "home",
+    "cart",
+    "search",
+    "account",
+    "about",
+    "messages"
+  ];
+
   return (
     <Container>
       <Nav>
         <Ul>
-          <Li>
-            <StyledLink to="/">Home</StyledLink>
-          </Li>
-          <Li>
-            <StyledLink to="/cart">Cart</StyledLink>
-          </Li>
-          <Li>
-            <StyledLink to="/search">Search</StyledLink>
-          </Li>
-          <Li>
-            <StyledLink to="/account">Account</StyledLink>
-          </Li>
+          {tabs.map(tab => {
+            return (
+              <Li>
+                <StyledLink highlight={page === tab} to={`/${tab}`}>
+                  {pageTitle(tab)}
+                </StyledLink>
+              </Li>
+            );
+          })}
         </Ul>
       </Nav>
     </Container>
   );
 };
+
+export default connect<ReadProps, WriteProps, {}, RootState>(
+  state => ({
+    page: state.page
+  }),
+  dispatch => ({
+    setPage: page => dispatch(pageSlice.actions.changePage(page))
+  })
+)(NavBar);
 
 const Nav = styled.nav`
   height: 100%;
@@ -50,7 +81,7 @@ const Li = styled.li`
   height: 100%;
 `;
 
-const StyledLink = styled(Link)`
+const StyledLink = styled(Link)<{ highlight: boolean }>`
   display: block;
   color: white;
   text-align: center;
@@ -60,4 +91,6 @@ const StyledLink = styled(Link)`
   &:hover {
     background-color: black;
   }
+
+  background-color: ${props => (!props.highlight ? "#333" : "black")};
 `;
